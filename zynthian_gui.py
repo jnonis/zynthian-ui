@@ -56,6 +56,7 @@ from zyngui.zynthian_gui_bank import zynthian_gui_bank
 from zyngui.zynthian_gui_preset import zynthian_gui_preset
 from zyngui.zynthian_gui_control import zynthian_gui_control
 from zyngui.zynthian_gui_control_xy import zynthian_gui_control_xy
+from zyngui.zynthian_gui_control_organelle import zynthian_gui_control_organelle
 from zyngui.zynthian_gui_midi_profile import zynthian_gui_midi_profile
 from zyngui.zynthian_gui_confirm import zynthian_gui_confirm
 
@@ -153,6 +154,7 @@ class zynthian_gui:
 		self.screens['preset']=zynthian_gui_preset()
 		self.screens['control']=zynthian_gui_control()
 		self.screens['control_xy']=zynthian_gui_control_xy()
+		self.screens['control_organelle']=zynthian_gui_control_organelle()
 		self.screens['midi_profile']=zynthian_gui_midi_profile()
 		self.screens['confirm']=zynthian_gui_confirm()
 		# Show initial screen => Channel list

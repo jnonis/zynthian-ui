@@ -89,7 +89,10 @@ class zynthian_gui_layer(zynthian_gui_selector):
 			zynthian_gui_config.zyngui.set_curlayer(self.curlayer)
 			# If there is an preset selection for the active layer ...
 			if self.curlayer.get_preset_name():
-				zynthian_gui_config.zyngui.show_screen('control')
+				if self.curlayer.engine.nickname=='OR':
+					zynthian_gui_config.zyngui.show_screen('control_organelle')
+				else:
+					zynthian_gui_config.zyngui.show_screen('control')
 			else:
 				zynthian_gui_config.zyngui.show_screen('bank')
 				# If there is only one bank, jump to preset selection
@@ -119,7 +122,7 @@ class zynthian_gui_layer(zynthian_gui_selector):
 
 	def add_layer_engine(self, eng):
 		self.add_layer_eng=eng
-		if eng.nickname=='MD' or eng.nickname=='PD':
+		if eng.nickname=='MD' or eng.nickname=='PD' or eng.nickname=='OR':
 			self.add_layer_midich(None)
 		elif eng.nickname=='BF':
 			self.add_layer_midich(0,False)

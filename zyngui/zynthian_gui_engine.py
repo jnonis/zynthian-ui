@@ -65,6 +65,7 @@ class zynthian_gui_engine(zynthian_gui_selector):
 
 	engine_info['MD']=("MOD-UI","MOD-UI - Plugin Host")
 	engine_info['PD']=("PureData","PureData - Visual Programming")
+	engine_info['OR']=("Organelle","Organelle PureData patches")
 
 	def __init__(self):
 		self.zyngines={}
@@ -103,6 +104,8 @@ class zynthian_gui_engine(zynthian_gui_selector):
 				self.zyngines[eng]=zynthian_engine_pianoteq(zynthian_gui_config.zyngui)
 			elif eng=="PD":
 				self.zyngines[eng]=zynthian_engine_puredata(zynthian_gui_config.zyngui)
+			elif eng=="OR":
+                                self.zyngines[eng]=zynthian_engine_organelle(zynthian_gui_config.zyngui)
 			else:
 				return None
 			if wait>0:

@@ -57,7 +57,10 @@ class zynthian_gui_preset(zynthian_gui_selector):
 
 	def select_action(self, i):
 		zynthian_gui_config.zyngui.curlayer.set_preset(i)
-		zynthian_gui_config.zyngui.show_screen('control')
+		if zynthian_gui_config.zyngui.curlayer.engine.nickname=='OR':
+			zynthian_gui_config.zyngui.show_screen('control_organelle')
+		else:
+			zynthian_gui_config.zyngui.show_screen('control')
 
 	def preselect_action(self):
 		return zynthian_gui_config.zyngui.curlayer.preload_preset(self.index)
