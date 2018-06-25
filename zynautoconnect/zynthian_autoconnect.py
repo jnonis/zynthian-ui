@@ -188,6 +188,23 @@ def midi_autoconnect():
 			except:
 				pass
 
+		devs=jclient.get_ports("Pure Data", is_output=True, is_midi=True, is_physical=False)
+		try:
+			dev=devs[0]
+			if dev.shortname=='osc':
+				dev=devs[1]
+			logger.info("Engine "+str(dev)+" found")
+			for hw in hw_in:
+				try:
+					if get_port_alias_id(hw) in zynthian_gui_config.enabled_midi_out_ports:
+						jclient.connect(dev,hw)
+					else:
+						jclient.disconnect(dev,hw)
+				except:
+					pass
+		except:
+			#logger.warning("Engine "+str(devs[0])+" is not present")
+			pass
 
 def audio_autoconnect():
 	logger.info("Autoconnecting Audio ...")

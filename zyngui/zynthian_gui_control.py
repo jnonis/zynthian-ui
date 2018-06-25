@@ -76,6 +76,19 @@ class zynthian_gui_control(zynthian_gui_selector):
 			highlightthickness=0,
 			relief='flat',
 			bg = zynthian_gui_config.color_bg)
+		
+		# Display
+		self.listdisplay = tkinter.Listbox(self.lb_frame,
+			font=zynthian_gui_config.font_listbox,
+			bd=7,
+			highlightthickness=0,
+			relief='flat',
+			bg=zynthian_gui_config.color_panel_bg,
+			fg=zynthian_gui_config.color_panel_tx,
+			selectbackground=zynthian_gui_config.color_ctrl_bg_on,
+			selectforeground=zynthian_gui_config.color_ctrl_tx,
+			selectmode=tkinter.BROWSE)
+		#self.listdisplay.grid(sticky="wens")
 
 	def show(self):
 		super().show()

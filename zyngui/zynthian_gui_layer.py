@@ -119,7 +119,7 @@ class zynthian_gui_layer(zynthian_gui_selector):
 
 	def add_layer_engine(self, eng):
 		self.add_layer_eng=eng
-		if eng.nickname=='MD' or eng.nickname=='PD':
+		if eng.nickname=='MD' or eng.nickname=='PD' or eng.nickname=='OR':
 			self.add_layer_midich(None)
 		elif eng.nickname=='BF':
 			self.add_layer_midich(0,False)
