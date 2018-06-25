@@ -2,13 +2,13 @@
 # -*- coding: utf-8 -*-
 #******************************************************************************
 # ZYNTHIAN PROJECT: Zynthian GUI
-# 
+#
 # Zynthian GUI Engine Selector Class
-# 
+#
 # Copyright (C) 2015-2016 Fernando Moyano <jofemodo@zynthian.org>
 #
 #******************************************************************************
-# 
+#
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License as
 # published by the Free Software Foundation; either version 2 of
@@ -20,7 +20,7 @@
 # GNU General Public License for more details.
 #
 # For a full copy of the GNU General Public License see the LICENSE.txt file.
-# 
+#
 #******************************************************************************
 
 import os
@@ -79,6 +79,7 @@ class zynthian_gui_engine(zynthian_gui_selector):
 		cls.engine_info['PD'] = ("PureData", "PureData - Visual Programming", "Special", zynthian_engine_puredata, True)
 		cls.engine_info['CS'] = ("CSound", "CSound Audio Language", "Special", zynthian_engine_csound, False)
 		cls.engine_info['MD'] = ("MOD-UI", "MOD-UI - Plugin Host", "Special", zynthian_engine_modui, True)
+		cls.engine_info['OR'] = ("Organelle", "Organelle PureData patches", "Special", zynthian_engine_organelle, True)
 
 
 	def __init__(self):

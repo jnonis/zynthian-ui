@@ -2,13 +2,13 @@
 # -*- coding: utf-8 -*-
 #******************************************************************************
 # ZYNTHIAN PROJECT: Zynthian GUI
-# 
+#
 # Zynthian GUI Layer Selector Class
-# 
+#
 # Copyright (C) 2015-2016 Fernando Moyano <jofemodo@zynthian.org>
 #
 #******************************************************************************
-# 
+#
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License as
 # published by the Free Software Foundation; either version 2 of
@@ -20,7 +20,7 @@
 # GNU General Public License for more details.
 #
 # For a full copy of the GNU General Public License see the LICENSE.txt file.
-# 
+#
 #******************************************************************************
 
 
@@ -308,7 +308,7 @@ class zynthian_gui_layer(zynthian_gui_selector):
 	def remove_layer(self, i, stop_unused_engines=True):
 		if i>=0 and i<len(self.layers):
 			logging.debug("Removing layer {} => {} ...".format(i, self.layers[i].get_basepath()))
-			
+
 			self.drop_from_fxchain(self.layers[i])
 			self.layers[i].mute_audio_out()
 			self.zyngui.zynautoconnect()
@@ -635,7 +635,7 @@ class zynthian_gui_layer(zynthian_gui_selector):
 		try:
 			rlayer = self.layers[self.replace_layer_index]
 			logging.debug("Replacing on FX-chain {} => {}".format(rlayer.get_jackname(), layer.get_jackname()))
-			
+
 			# Re-route audio
 			layer.set_audio_out(rlayer.get_audio_out())
 			rlayer.mute_audio_out()

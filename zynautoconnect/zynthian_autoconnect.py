@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 #********************************************************************
 # ZYNTHIAN PROJECT: Zynthian Autoconnector
-# 
+#
 # Autoconnect Jack clients
-# 
+#
 # Copyright (C) 2015-2016 Fernando Moyano <jofemodo@zynthian.org>
 #
 #********************************************************************
-# 
+#
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License as
 # published by the Free Software Foundation; either version 2 of
@@ -19,7 +19,7 @@
 # GNU General Public License for more details.
 #
 # For a full copy of the GNU General Public License see the LICENSE.txt file.
-# 
+#
 #********************************************************************
 
 import sys
@@ -82,13 +82,13 @@ def get_fixed_midi_port_name(port_name):
 def midi_autoconnect(force=False):
 	global last_hw_str
 
-	#Get Mutex Lock 
+	#Get Mutex Lock
 	acquire_lock()
 
 	logger.info("ZynAutoConnect: MIDI ...")
 
 	#------------------------------------
-	# Get Input/Output MIDI Ports: 
+	# Get Input/Output MIDI Ports:
 	#  - outputs are inputs for jack
 	#  - inputs are outputs for jack
 	#------------------------------------
@@ -118,7 +118,7 @@ def midi_autoconnect(force=False):
 			try:
 				hw_out.append(port)
 			except:
-				pass                    
+				pass
 
 	#logger.debug("Input Device Ports: {}".format(hw_out))
 	#logger.debug("Output Device Ports: {}".format(hw_in))
@@ -348,7 +348,7 @@ def audio_autoconnect(force=False):
 		logger.info("ZynAutoConnect: Escaped for Audio ...")
 		return
 
-	#Get Mutex Lock 
+	#Get Mutex Lock
 	acquire_lock()
 
 	logger.info("ZynAutoConnect: Audio ...")
@@ -380,7 +380,7 @@ def audio_autoconnect(force=False):
 				#logger.debug("Converting to Stereo Output {} ...".format(layer.get_jackname()))
 
 			#logger.debug("Autoconnecting Engine {} ...".format(layer.get_jackname()))
-			
+
 			#Connect to assigned ports and disconnect from the rest ...
 			for ao in input_ports:
 				if ao in layer.get_audio_out():
