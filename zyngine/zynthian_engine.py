@@ -97,7 +97,7 @@ class zynthian_engine:
 		self.osc_server_url=None
 
 		# Hide display
-		self.zyngui.screens['control'].listdisplay.grid_remove()
+		self.zyngui.screens['control'].oled.grid_remove()
 
 	def __del__(self):
 		self.stop()

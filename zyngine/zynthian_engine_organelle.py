@@ -53,12 +53,15 @@ class zynthian_engine_organelle(zynthian_engine):
 		['aux',25,'off',['off','on']],
 		['fs',64,'off',['off','on']],
 		['expression',26,0],
-		['volume',7,96]
+		['volume',7,96],
+		['enc',27,0],
+		['enc but',28,'off',['off','on']]
 	]
 
 	_ctrl_screens=[
 		['control 1',['knob 1','knob 2','knob 3','knob 4']],
-		['control 2',['aux','fs','expression','volume']]
+		['control 2',['aux','fs','expression','volume']],
+		['control 3',['enc','enc but']]
 	]
 
 	is_set_preset=False
@@ -76,16 +79,17 @@ class zynthian_engine_organelle(zynthian_engine):
 		self.osc_server_port=4001
 
 		# Show display
-		self.zyngui.screens['control'].listdisplay.grid(sticky="wens")
+		self.zyngui.screens['control'].oled.grid(sticky="wens")
+		#self.zyngui.screens['control'].oled.pack()
 
 		self.bank_dirs=[
 			('_', os.getcwd()+"/my-data/presets/organelle")
 		]
 
 		if self.config_remote_display():
-			self.base_command=("/usr/bin/pd", "-jack", "-rt", "-alsamidi", "-mididev", "1", "-sen", ";pd dsp 1", "/zynthian/zynthian-sw/organelle-mother/mother-rpi-axiom.pd")
+			self.base_command=("/usr/bin/pd", "-jack", "-rt", "-alsamidi", "-mididev", "1")
 		else:
-			self.base_command=("/usr/bin/pd", "-nogui", "-jack", "-rt", "-alsamidi", "-mididev", "1", "-send", ";pd dsp 1", "/zynthian/zynthian-sw/organelle-mother/mother-rpi-axiom.pd")
+			self.base_command=("/usr/bin/pd", "-nogui", "-jack", "-rt", "-alsamidi", "-mididev", "1")
 
 		self.start()
 		self.osc_init()
@@ -108,47 +112,9 @@ class zynthian_engine_organelle(zynthian_engine):
 	#----------------------------------------------------------------------------
 
 	def osc_add_methods(self):
-		self.osc_server.add_method("/oled/line/1", None, self.cb_osc_display1)
-		self.osc_server.add_method("/oled/line/2", None, self.cb_osc_display2)
-		self.osc_server.add_method("/oled/line/3", None, self.cb_osc_display3)
-		self.osc_server.add_method("/oled/line/4", None, self.cb_osc_display4)
-		self.osc_server.add_method("/oled/line/5", None, self.cb_osc_display5)
-		self.osc_server.add_method("/oled/invertline", None, self.cb_select_line)
+		self.zyngui.screens['control'].oled.add_osc_methods(self.osc_server)
 		super().osc_add_methods()
 		logging.info("OSC Added methods")
-
-	def cb_osc_display1(self, path, args):
-		logging.info("OSC Display: %s %s" % (path,args))
-		self.update_gui_display(0, args)
-
-
-	def cb_osc_display2(self, path, args):
-		logging.info("OSC Display 2: %s %s" % (path,args))
-		self.update_gui_display(1, args)
-
-	def cb_osc_display3(self, path, args):
-		logging.info("OSC Display 3: %s %s" % (path,args))
-		self.update_gui_display(2, args)
-
-	def cb_osc_display4(self, path, args):
-		logging.info("OSC Display 4: %s %s" % (path,args))
-		self.update_gui_display(3, args)
-
-	def cb_osc_display5(self, path, args):
-		logging.info("OSC Display 5: %s %s" % (path,args))
-		self.update_gui_display(4, args)
-
-	def cb_select_line(self, path, args):
-		logging.info("OSC Select Line: %s %s" % (path,args))
-		self.zyngui.screens['control'].listdisplay.selection_clear(0, "end")
-		self.zyngui.screens['control'].listdisplay.selection_set(args[0])
-
-	def update_gui_display(self, index, args):
-		line = ""
-		for part in args:
-			line = line + str(part) + " "
-		self.zyngui.screens['control'].listdisplay.delete(index)
-		self.zyngui.screens['control'].listdisplay.insert(index, line)
 
 	# ---------------------------------------------------------------------------
 	# MIDI Channel Management
@@ -177,7 +143,8 @@ class zynthian_engine_organelle(zynthian_engine):
 			self.is_set_preset=True
 			self.start_loading()
 			self.load_preset_config(preset)
-			self.command=self.base_command+(self.get_preset_filepath(preset),)
+			self.command=self.base_command + ("-send", ";patch " + self.get_preset_filepath(preset).replace(' ', '\ '), "/zynthian/zynthian-sw/pd-mother-rpi/mother-rpi.pd")
+			print('[%s]' % ', '.join(map(str, self.command)))
 			self.preset=preset[0]
 			self.stop()
 			self.start(True,False)
