@@ -193,7 +193,7 @@ class zynthian_engine(zynthian_basic_engine):
 
 
 		# Hide display
-		self.zyngui.screens['control'].listdisplay.grid_remove()
+		self.zyngui.screens['control'].oled.grid_remove()
 
 	def __del__(self):
 		self.stop()
