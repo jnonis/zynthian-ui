@@ -72,8 +72,11 @@ class zynthian_engine_organelle(zynthian_engine):
 
 	def __init__(self, zyngui=None):
 		super().__init__(zyngui)
+
+		self.type = "Special"
 		self.name="Organelle"
 		self.nickname="OR"
+		
 		self.preset=""
 		self.preset_config=None
 		self.osc_server_port=4001
@@ -173,11 +176,11 @@ class zynthian_engine_organelle(zynthian_engine):
 		preset_fpath = preset[0] + "/main.pd"
 		if isfile(preset_fpath):
 			return preset_fpath
-		
+
 		preset_fpath = preset[0] + "/" + os.path.basename(preset[0]) + ".pd"
 		if isfile(preset_fpath):
 			return preset_fpath
-		
+
 		preset_fpath = join(preset[0],os.listdir(preset[0])[0])
 		return preset_fpath
 
